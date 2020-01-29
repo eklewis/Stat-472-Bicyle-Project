@@ -13,6 +13,7 @@ library(knitr)
 library(dplyr)
 library(tidyverse)
 library(readr)
+library(janitor)
 
 #Load in Bike data
 bike <- read_csv("BicycleData.DAT")
@@ -21,29 +22,27 @@ bike <- read_csv("BicycleData.DAT")
 ```{r}
 ##Table 1##
 
-##NEED TO DO US and NON US#
+#Demographic Distribution
+Demograph <- data.frame("Demographic Distribution" = c("United States", "Non-US (exluded from analyses)"), n = c(1824, 154)) %>%adorn_totals("row") %>% adorn_percentages("col") %>% adorn_pct_formatting(digits = 0, round = "half up") %>% adorn_ns("front")
 
 #Cycling Distance
-Cycle_dist <- bike %>% group_by(CycleDist2) %>% count() %>% mutate(Percent = round((n / dim(bike)[1])*100, digits=2)) %>% rename("Cycle Distance" = CycleDist2) %>% ungroup() %>% mutate("Weekly Cycling Distance" = c("<16 km (10mi)", ">16km")) %>%select("Weekly Cycling Distance", n, Percent)
+Cycle_dist <-bike %>% group_by(CycleDist2) %>% count() %>% ungroup() %>% mutate("Weekly Cycling Distance" = c("<16 km (10mi)", ">16km")) %>%select("Weekly Cycling Distance", n) %>% adorn_totals("row") %>% adorn_percentages("col") %>% adorn_pct_formatting(digits = 0, rounding = "half up") %>% adorn_ns("front")
 
 #Education
-Education <- bike %>% group_by(Education) %>% count() %>% mutate(Percent = round((n / dim(bike)[1])*100, digits=2))
+Education <- bike %>% group_by(Education) %>% count() %>% ungroup() %>% select(n) %>% mutate(Education = c("4-Year College", "Community COllege", "Less than High School", "Graduate Degree", "HIgh School", "No response")) %>% select(Education, n) %>% adorn_totals("row") %>% adorn_percentages("col") %>% adorn_pct_formatting(digits = 0, rounding = "half to even") %>% adorn_ns("front")
 
 #Traffic control device
-Traffic_cntrl_device <- bike %>% group_by(Treatment) %>% count() %>% mutate(Percent = round((n / dim(bike)[1])*100, digits=2)) %>%ungroup() %>% select(n, Percent) %>% mutate("Traffic Control Device" = c("None", "Share the Road", "Shared Lane Marking", "Bicycle May Use Full Lane")) %>%select("Traffic Control Device", n, Percent)
+Traffic_cntrl_device <- bike %>% group_by(Treatment) %>% count() %>% ungroup() %>% select(n) %>% mutate("Traffic Control Device" = c("None", "Share the Road", "Shared Lane Marking", "Bicycle May Use Full Lane")) %>% select("Traffic Control Device", n) %>% adorn_totals("row") %>% adorn_percentages("col") %>% adorn_pct_formatting(digits = 0, rounding = "half up") %>% adorn_ns("front")
 
 #Commute Mode
-Commute_mode <- bike %>% group_by(CommuteType2) %>% count() %>% mutate(Percent = round((n / dim(bike)[1])*100, digits=2)) %>% ungroup() %>% mutate("Commute Mode" = c("Private Motor Vehicle", "Other Means")) %>% select("Commute Mode", n, Percent)
+Commute_mode <- bike %>% group_by(CommuteType2) %>% count() %>% ungroup() %>% mutate("Commute Mode" = c("Private Motor Vehicle", "Other Means")) %>% select("Commute Mode", n) %>% adorn_totals("row") %>% adorn_percentages("col") %>% adorn_pct_formatting(digits = 0, rounding = "half up") %>% adorn_ns("front")
 
 #Gender
-Gender <- bike %>% group_by(Gender) %>% count() %>% mutate(Percent = round((n / dim(bike)[1])*100, digits=2)) %>%ungroup() %>% mutate(Gender = c("Female", "Male", "No response")) %>% select(Gender, n, Percent)
+Gender <- bike %>% group_by(Gender) %>% count() %>% ungroup() %>% mutate(Gender = c("Female", "Male", "No response")) %>% select(Gender, n) %>% adorn_totals("row") %>% adorn_percentages("col") %>% adorn_pct_formatting(digits = 0, rounding = "half up") %>% adorn_ns("front")
 
 
 #Print out tables to look nice
 ##knitr :: kable(Traffic_cntrl_device)
-
- 
-
 
 ```
 
