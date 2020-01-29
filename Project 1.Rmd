@@ -7,24 +7,43 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+#Load needed Libraries
+library(knitr)
+library(dplyr)
+library(tidyverse)
+library(readr)
+
+#Load in Bike data
+bike <- read_csv("BicycleData.DAT")
 ```
 
-## R Markdown
+```{r}
+##Table 1##
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+##NEED TO DO US and NON US#
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+#Cycling Distance
+Cycle_dist <- bike %>% group_by(CycleDist2) %>% count() %>% mutate(Percent = round((n / dim(bike)[1])*100, digits=2)) %>% rename("Cycle Distance" = CycleDist2) %>% ungroup() %>% mutate("Weekly Cycling Distance" = c("<16 km (10mi)", ">16km")) %>%select("Weekly Cycling Distance", n, Percent)
 
-```{r cars}
-summary(cars)
+#Education
+Education <- bike %>% group_by(Education) %>% count() %>% mutate(Percent = round((n / dim(bike)[1])*100, digits=2))
+
+#Traffic control device
+Traffic_cntrl_device <- bike %>% group_by(Treatment) %>% count() %>% mutate(Percent = round((n / dim(bike)[1])*100, digits=2)) %>%ungroup() %>% select(n, Percent) %>% mutate("Traffic Control Device" = c("None", "Share the Road", "Shared Lane Marking", "Bicycle May Use Full Lane")) %>%select("Traffic Control Device", n, Percent)
+
+#Commute Mode
+Commute_mode <- bike %>% group_by(CommuteType2) %>% count() %>% mutate(Percent = round((n / dim(bike)[1])*100, digits=2)) %>% ungroup() %>% mutate("Commute Mode" = c("Private Motor Vehicle", "Other Means")) %>% select("Commute Mode", n, Percent)
+
+#Gender
+Gender <- bike %>% group_by(Gender) %>% count() %>% mutate(Percent = round((n / dim(bike)[1])*100, digits=2)) %>%ungroup() %>% mutate(Gender = c("Female", "Male", "No response")) %>% select(Gender, n, Percent)
+
+
+#Print out tables to look nice
+##knitr :: kable(Traffic_cntrl_device)
+
+ 
+
+
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
