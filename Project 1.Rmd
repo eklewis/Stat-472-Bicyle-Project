@@ -60,3 +60,20 @@ BikeMoveRight2.binary= bike %>%
   mutate(BikeMoveRight2 = as.numeric(BikeMoveRight2))
 ```
 
+```{r Prob3}
+#All respondents
+all.respondents <- bike %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2))
+
+# Cycle less than 16 km 
+less.16km <- bike %>% filter(CycleDist2 == "<10") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
+
+#Commuter Motorist
+motorist <- bike %>% filter(CommuteType2 == "MotorVehicle") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
+
+#Cycle greater than 16 km
+greater.16km <- bike %>% filter(CycleDist2 == ">10") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
+
+#Commuter Other
+other <- motorist <- bike %>% filter(CommuteType2 == "Other") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
+```
+
