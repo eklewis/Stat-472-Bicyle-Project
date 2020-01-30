@@ -52,3 +52,11 @@ l <- list(Demograph, Cycle_dist, Education, Traffic_cntrl_device, Commute_mode, 
 knitr::kable(l)
 ```
 
+```{r}
+BikeMoveRight2.binary= bike %>%
+  mutate(BikeMoveRight2= recode(BikeMoveRight2,
+                                "1_Agree" = "1",
+                                "0_Disagree" = "0")) %>%
+  mutate(BikeMoveRight2 = as.numeric(BikeMoveRight2))
+```
+
