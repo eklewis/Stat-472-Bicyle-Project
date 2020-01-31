@@ -53,11 +53,17 @@ knitr::kable(l)
 ```
 
 ```{r}
-BikeMoveRight2.binary= bike %>%
-  mutate(BikeMoveRight2= recode(BikeMoveRight2,
-                                "1_Agree" = "1",
-                                "0_Disagree" = "0")) %>%
-  mutate(BikeMoveRight2 = as.numeric(BikeMoveRight2))
+bike.binary <- bike %>% 
+  mutate(BikeMoveRight2 = recode(BikeMoveRight2, "1_Agree" = 1 , "0_Disagree" = 0), 
+         MVWait2= recode(MVWait2, "1_Agree" = 1 , "0_Disagree" = 0), 
+         Permitted2 = recode(Permitted2, "1_Agree" = 1 , "0_Disagree" = 0), 
+         Safe2 = recode(Safe2, "1_Agree" = 1 , "0_Disagree" = 0), 
+         BikeMoveRight4 = recode(BikeMoveRight4, "1_Agree" = 1 , "0_Disagree" = 0), 
+         MVWait4 = recode(MVWait4, "1_Agree" = 1 , "0_Disagree" = 0), 
+         Permitted4 = recode(Permitted4, "1_Agree" = 1 , "0_Disagree" = 0), 
+         Safe4 = recode(Safe4, "1_Agree" = 1 , "0_Disagree" = 0))
+head(bike.binary)
+
 ```
 
 ```{r Prob3}
