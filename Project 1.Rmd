@@ -83,3 +83,82 @@ greater.16km <- bike %>% filter(CycleDist2 == ">10") %>% group_by(Treatment) %>%
 other <- motorist <- bike %>% filter(CommuteType2 == "Other") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
 ```
 
+
+
+# S1 Table. Parameter estimates, standard errors, and p-values for our logistic model.
+
+
+```{r}
+
+bike <- read_csv("BicycleData.DAT")
+
+
+#Convert to factors##################################
+bike$BikeMoveRight2 <- as.factor(bike$BikeMoveRight2)
+bike$Treatment <- as.factor(bike$Treatment)
+bike$CycleDist2 <- as.factor(bike$CycleDist2)
+bike$CommuteType2 <- as.factor(bike$CommuteType2)
+bike$BikeMoveRight4 <- as.factor(bike$BikeMoveRight4)
+bike$MVWait2 <- as.factor(bike$MVWait2)
+bike$MVWait4 <- as.factor(bike$MVWait4)
+bike$Permitted2 <- as.factor(bike$Permitted2)
+bike$Permitted4 <- as.factor(bike$Permitted4)
+bike$Safe2 <- as.factor(bike$Safe2)
+bike$Safe4 <- as.factor(bike$Safe4)
+#####################################################
+
+
+
+######### 2 Lane LMs ###############################
+
+
+#Bike Move Right
+mr2lm <- glm(BikeMoveRight2 ~ Treatment + CycleDist2 + CommuteType2, data = bike, family="binomial")
+
+#Motorist Should Slow
+mvw2lm <- glm(MVWait2 ~ Treatment + CycleDist2 + CommuteType2, data = bike, family="binomial")
+
+#Bike is Permitted
+perm2lm <- glm(Permitted2 ~ Treatment + CycleDist2 + CommuteType2, data = bike, family="binomial")
+
+#Bike is safe
+safe2lm <- glm(Safe2 ~ Treatment + CycleDist2 + CommuteType2, data = bike, family="binomial")
+
+##### 2 Lane Anovas ######################
+
+summary(mr2lm)
+summary(mvw2lm)
+summary(perm2lm)
+summary(safe2lm)
+
+#############################################
+
+######## 4 Lane Lms #########################
+
+#Bike Move Right
+mr4lm <- glm(BikeMoveRight4 ~ Treatment + CycleDist2 + CommuteType2, data = bike, family="binomial")
+
+#Motorist Should Slow
+mvw4lm <- glm(MVWait4 ~ Treatment + CycleDist2 + CommuteType2, data = bike, family="binomial")
+
+#Bike is Permitted
+perm4lm <- glm(Permitted4 ~ Treatment + CycleDist2 + CommuteType2, data = bike, family="binomial")
+
+#Bike is safe
+safe4lm <- glm(Safe4 ~ Treatment + CycleDist2 + CommuteType2, data = bike, family="binomial")
+
+##### 4 Lane Anovas ######################
+
+summary(mr4lm)
+summary(mvw4lm)
+summary(perm4lm)
+summary(safe4lm)
+
+#############################################
+
+```
+
+
+
+
+
