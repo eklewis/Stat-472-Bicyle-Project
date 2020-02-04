@@ -23,14 +23,14 @@ bike <- read_csv("BicycleData.DAT")
 ```
 
 
-1. Summarize and describe the bicycle safety study (George Hess, M. Nils Peterson, 2015) and the con- clusions of the study. Your answer should be a few paragraphs (say, half page - one page summary).
+## 1. Summarize and describe the bicycle safety study (George Hess, M. Nils Peterson, 2015) and the con- clusions of the study. Your answer should be a few paragraphs (say, half page - one page summary).
 
 Safety of bicycling on roadways if frequently cited as a deterrent even though it is believed that increasing the use of bicycles for transportation would make an impact on many global challenges. The bicycle safety study aimed to examine how well three US traffic control devices communicated the message that bicyclists are permitted in the center of the travel lane, and do not have to get out of the way to allow motorists to pass without changing lanes. “Bicycles May Use Full Lane”, “Share the Road”, and Shared Lane Markings on the pavement where used as the three traffic control communication devices. Through an online survey on the social media platform Twitter, 1,978 participants were asked to evaluate two traffic situations involving a motor vehicle and a bicycle on a two-lane and four-lane roadway. Both situations showed a motorist behind a cyclist riding in the center lane and the roadway being depicted with lanes too narrow for lawful in-lane passing of the cyclists by the motor vehicle. This situation was intended to focus the attention on the essential question of the respondent’s belief about the rights and duties of the bicyclist and following motorists. For the two different traffic situations respondents were asked to agree or disagree with four statements regarding actions the motorist or bicyclist should take. Respondents were also asked the following questions: distance they drove motor vehicles and bicycles weekly, primary mode of transportation to school or work, level of education, gender, and state of residence.  After the 1,978 surveys were administered 1,824 responses were recorded. A logistic regression model that predicted agreement versus disagreement with each statement as a function of the signage scenario, primary way of transportation, and the distance the respondents bicycled during a typical week was created. On a 2 and 4 lane road in almost every case respondents who saw “Bicycles May Use Full Lane” signage were significantly more likely than those who saw no signage to agree that bicyclist are permitted in the center of the lane, and do not have to move to the shoulder of the road to allow motorists to pass. When respondents saw “Share the Road” signage there was not a statistically significant difference in responses to those who saw no signage in any scenario we tested. Respondents who saw Shared Lane Markings were significantly more likely than respondents who saw no signage to agree that bicyclists are permitted in the center of the travel lane.  In conclusion out of the three traffic control devices tested “Bicycles May Use Full Lane” delivered the clearest message about the right and responsibilities of both bicyclists and motorists with regards to travel lane occupancy. It was also seen that Shared Lane Markings increased comprehension in some cases but they did not deliver the message as clearly as the “Bicycles May Use Full Lane” signage. “Share the Road” signage failed to provide any additional comprehension. It can be concluded through this study that road signage would be more effective, possibly increasing the safety and there for the amount of people that cycle, if the road signage was changed to “Bicycles May Use Full Lane”. 
 
 
-2. Reproduce the results presented in Table 1, S1 Table and Table 2. You do not have to produce tables that look exactly like the ones in the paper, but you should be able confirm all of the values and organize the results neatly. Also write down the theoretical model with statistical notations for any one of the logistic models in S1 Table.
+## 2. Reproduce the results presented in Table 1, S1 Table and Table 2. You do not have to produce tables that look exactly like the ones in the paper, but you should be able confirm all of the values and organize the results neatly. Also write down the theoretical model with statistical notations for any one of the logistic models in S1 Table.
 
-Table 1:
+# Table 1:
 
 ```{r}
 
@@ -74,7 +74,6 @@ head(bike.binary)
 
 ```
 
-<<<<<<< HEAD
 ```{r Prob3}
 #All respondents
 all.respondents <- bike %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2))
@@ -92,12 +91,8 @@ greater.16km <- bike %>% filter(CycleDist2 == ">10") %>% group_by(Treatment) %>%
 other <- motorist <- bike %>% filter(CommuteType2 == "Other") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
 ```
 
-
-
 # S1 Table. Parameter estimates, standard errors, and p-values for our logistic model.
-=======
-S1 Table. Parameter estimates, standard errors, and p-values for our logistic model.
->>>>>>> 7401e659266303705bbfafc80220f759cc444bc9
+
 
 ```{r}
 
@@ -137,10 +132,10 @@ safe2lm <- glm(Safe2 ~ Treatment + CycleDist2 + CommuteType2, data = bike, famil
 
 ##### 2 Lane Anovas ######################
 
-summary(mr2lm)
-summary(mvw2lm)
-summary(perm2lm)
-summary(safe2lm)
+tidy(mr2lm)
+tidy(mvw2lm)
+tidy(perm2lm)
+tidy(safe2lm)
 
 #############################################
 
@@ -177,8 +172,41 @@ tidy(safe4lm)
 ```
 
 
+# Table 2
 
-3. Reproduce the numbers presented in Fig 5 (A) (top left plot only).
+```{r}
+
+mvr2odds <- exp(coef(mr2lm))
+wait2odds <- exp(coef(mvw2lm))
+perm2odds <- exp(coef(perm2lm))
+safe2odds <- exp(coef(safe2lm))
+
+
+mvr4odds <- exp(coef(mr4lm))
+wait4odds <- exp(coef(mvw4lm))
+perm4odds <- exp(coef(perm4lm))
+safe4odds <- exp(coef(safe4lm))
+
+oddstable2 <- round(rbind(mvr2odds[-1],wait2odds[-1],perm2odds[-1], safe2odds[-1]),2)
+
+oddstable4 <- round(rbind(mvr4odds[-1],wait4odds[-1],perm4odds[-1], safe4odds[-1]),2)
+
+rownames(oddstable2) <- c("Bike Move Right", "Motorist Slow and Wait", "Bike is Permitted in Center", "Bike is Safe in Center")
+
+colnames(oddstable2) <- c("StR", "SLM", "BMUFO", "Cycle Dist", "Commute Type")
+
+
+rownames(oddstable4) <- c("Bike Move Right", "Motorist Slow and Wait", "Bike is Permitted in Center", "Bike is Safe in Center")
+
+colnames(oddstable4) <- c("StR", "SLM", "BMUFO", "Cycle Dist", "Commute Type")
+
+knitr:: kable(as.data.frame(oddstable2), caption = "2-Lane Road")
+knitr:: kable(as.data.frame(oddstable4), caption = "4-Lane Road")
+
+
+```
+
+## 3. Reproduce the numbers presented in Fig 5 (A) (top left plot only).
 
 ```{r}
 #All respondents
@@ -196,5 +224,5 @@ greater.16km <- bike %>% filter(CycleDist2 == ">10") %>% group_by(Treatment) %>%
 #Commuter Other
 other <- motorist <- bike %>% filter(CommuteType2 == "Other") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
 ```
-```
+
 
