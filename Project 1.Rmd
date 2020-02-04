@@ -16,6 +16,7 @@ library(dplyr)
 library(tidyverse)
 library(readr)
 library(janitor)
+library(broom)
 
 #Load in Bike data
 bike <- read_csv("BicycleData.DAT")
@@ -136,10 +137,10 @@ safe4lm <- glm(Safe4 ~ Treatment + CycleDist2 + CommuteType2, data = bike, famil
 
 ##### 4 Lane Anovas ######################
 
-summary(mr4lm)
-summary(mvw4lm)
-summary(perm4lm)
-summary(safe4lm)
+tidy(mr4lm)
+tidy(mvw4lm)
+tidy(perm4lm)
+tidy(safe4lm)
 
 #############################################
 
