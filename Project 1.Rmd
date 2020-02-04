@@ -2,7 +2,9 @@
 title: "Stat 472 Project 1"
 author: "Emma Lewis, Megan Harrison, Jackson Epstein, Amanda Scherbarth"
 date: "1/28/2020"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -38,7 +40,7 @@ Demograph <- data.frame("Demographic Distribution" = c("United States", "Non-US 
 Cycle_dist <-bike %>% group_by(CycleDist2) %>% count() %>% ungroup() %>% mutate("Weekly Cycling Distance" = c("<16 km (10mi)", ">16km")) %>% select("Weekly Cycling Distance", n) %>% adorn_totals("row") %>% adorn_percentages("col") %>% adorn_pct_formatting(digits = 0, rounding = "half up") %>% adorn_ns("front")  %>% rename(Count = n)
 
 #Education
-Education <- bike %>% group_by(Education) %>% count() %>% ungroup() %>% select(n) %>% mutate(Education = c("4-Year College", "Community COllege", "Less than High School", "Graduate Degree", "High School", "No response")) %>% select(Education, n) %>% adorn_totals("row") %>% adorn_percentages("col") %>% adorn_pct_formatting(digits = 0, rounding = "half to even") %>% adorn_ns("front") %>% rename(Count = n)
+Education <- bike %>% group_by(Education) %>% count() %>% ungroup() %>% select(n) %>% mutate(Education = c("4-Year College", "Community College", "Less than High School", "Graduate Degree", "High School", "No response")) %>% select(Education, n) %>% adorn_totals("row") %>% adorn_percentages("col") %>% adorn_pct_formatting(digits = 0, rounding = "half to even") %>% adorn_ns("front") %>% rename(Count = n)
 
 #Traffic control device
 Traffic_cntrl_device <- bike %>% group_by(Treatment) %>% count() %>% ungroup() %>% select(n) %>% mutate("Traffic Control Device" = c("None", "Share the Road", "Shared Lane Marking", "Bicycle May Use Full Lane")) %>% select("Traffic Control Device", n) %>% adorn_totals("row") %>% adorn_percentages("col") %>% adorn_pct_formatting(digits = 0, rounding = "half up") %>% adorn_ns("front") %>% rename(Count = n)
