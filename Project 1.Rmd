@@ -242,6 +242,12 @@ greater.16km <- bike %>% filter(CycleDist2 == ">10") %>% group_by(Treatment) %>%
 
 #Commuter Other
 other <- motorist <- bike %>% filter(CommuteType2 == "Other") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
+
+knitr::kable(all.respondents)
+knitr::kable(less.16km)
+knitr::kable(motorist)
+knitr::kable(greater.16km)
+knitr::kable(other)
 ```
 
 # Appendix
