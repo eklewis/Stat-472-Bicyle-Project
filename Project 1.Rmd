@@ -3,8 +3,8 @@ title: "Stat 472 Project 1"
 author: "Emma Lewis, Megan Harrison, Jackson Epstein, Amanda Scherbarth"
 date: "1/28/2020"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
