@@ -54,8 +54,15 @@ Gender <- bike %>% group_by(Gender) %>% count() %>% ungroup() %>% mutate(Gender 
 
 #Print out tables to look nice
 ##knitr :: kable(Traffic_cntrl_device)
-l <- list(Demograph, Cycle_dist, Education, Traffic_cntrl_device, Commute_mode, Gender)
-knitr::kable(l)
+#l <- list(Demograph, Cycle_dist, Education, Traffic_cntrl_device, Commute_mode, Gender)
+#knitr::kable(l)
+
+knitr::kable(Demograph)
+knitr::kable(Cycle_dist)
+knitr::kable(Education)
+knitr::kable(Traffic_cntrl_device)
+knitr::kable(Commute_mode)
+knitr::kable(Gender)
 
 ```
 
