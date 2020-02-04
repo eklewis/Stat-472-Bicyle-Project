@@ -150,12 +150,30 @@ perm2lm <- glm(Permitted2 ~ Treatment + CycleDist2 + CommuteType2, data = bike, 
 safe2lm <- glm(Safe2 ~ Treatment + CycleDist2 + CommuteType2, data = bike, family="binomial")
 
 ##### 2 Lane Anovas ######################
+```
 
+## Move Right 2
+```{r}
 tidy(mr2lm)
-tidy(mvw2lm)
-tidy(perm2lm)
-tidy(safe2lm)
+```
 
+## Motorist Wait 2
+```{r}
+tidy(mvw2lm)
+```
+
+## Permited 2
+```{r}
+tidy(perm2lm)
+```
+
+## Safe 2
+
+```{r}
+tidy(safe2lm)
+```
+
+```{r}
 #############################################
 
 ######## 4 Lane Lms #########################
@@ -172,22 +190,29 @@ perm4lm <- glm(Permitted4 ~ Treatment + CycleDist2 + CommuteType2, data = bike, 
 #Bike is safe
 safe4lm <- glm(Safe4 ~ Treatment + CycleDist2 + CommuteType2, data = bike, family="binomial")
 
-##### 4 Lane Anovas ######################
+```
 
-####### Bike Move Right 4 ########
+## Move Right 4
+```{r}
 tidy(mr4lm)
+```
+## Motorist Wait 4
 
-####### Motorist Should Wait ########
+```{r}
 tidy(mvw4lm)
+```
 
-####### Bike Permitted #########
+
+## Permitted 4
+
+```{r}
 tidy(perm4lm)
+```
 
-####### Safe ########
+## Safe 4
+
+```{r}
 tidy(safe4lm)
-
-#############################################
-
 ```
 
 
