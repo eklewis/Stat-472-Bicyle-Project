@@ -3,8 +3,8 @@ title: "Stat 472 Project 1"
 author: "Emma Lewis, Megan Harrison, Jackson Epstein, Amanda Scherbarth"
 date: "1/28/2020"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -97,6 +97,21 @@ other <- motorist <- bike %>% filter(CommuteType2 == "Other") %>% group_by(Treat
 ```
 
 # S1 Table. Parameter estimates, standard errors, and p-values for our logistic model.
+
+
+The logistic model:\ 
+
+$log(MVWait4) = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_3x_3 + \beta_4x_4 + \beta_5x_5 + \epsilon_i$\
+
+$x_1$ - STR\
+$x_2$ - SLM\
+$x_3$ - BMUFL\
+$x_4$ - Cycle Dist\
+$x_5$ - Commute Type\
+$\epsilon_i$ - Error of the ith term\
+
+
+
 
 
 ```{r}
