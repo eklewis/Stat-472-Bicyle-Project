@@ -2,7 +2,9 @@
 title: "Stat 472 Project 1"
 author: "Emma Lewis, Megan Harrison, Jackson Epstein, Amanda Scherbarth"
 date: "1/28/2020"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -14,6 +16,7 @@ library(dplyr)
 library(tidyverse)
 library(readr)
 library(janitor)
+library(broom)
 
 #Load in Bike data
 bike <- read_csv("BicycleData.DAT")
@@ -149,10 +152,10 @@ safe4lm <- glm(Safe4 ~ Treatment + CycleDist2 + CommuteType2, data = bike, famil
 
 ##### 4 Lane Anovas ######################
 
-summary(mr4lm)
-summary(mvw4lm)
-summary(perm4lm)
-summary(safe4lm)
+tidy(mr4lm)
+tidy(mvw4lm)
+tidy(perm4lm)
+tidy(safe4lm)
 
 #############################################
 
