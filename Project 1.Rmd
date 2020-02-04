@@ -223,4 +223,8 @@ greater.16km <- bike %>% filter(CycleDist2 == ">10") %>% group_by(Treatment) %>%
 other <- motorist <- bike %>% filter(CommuteType2 == "Other") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
 ```
 
+# Appendix
 
+```{r show-code, ref.label = all_labels(),  echo = TRUE, eval = FALSE}
+
+```
