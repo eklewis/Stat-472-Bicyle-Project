@@ -8,8 +8,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.width = 4, fig.height = 4, tidy = TRUE)
 #Load needed Libraries
 library(knitr)
 library(dplyr)
@@ -245,4 +244,8 @@ greater.16km <- bike %>% filter(CycleDist2 == ">10") %>% group_by(Treatment) %>%
 other <- motorist <- bike %>% filter(CommuteType2 == "Other") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
 ```
 
+# Appendix
 
+```{r show-code, ref.label = all_labels(),  echo = TRUE, eval = FALSE}
+
+```
