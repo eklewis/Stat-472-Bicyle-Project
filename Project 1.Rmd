@@ -92,7 +92,7 @@ other <- motorist <- bike %>% filter(CommuteType2 == "Other") %>% group_by(Treat
 
 
 
-S1 Table. Parameter estimates, standard errors, and p-values for our logistic model.
+# S1 Table. Parameter estimates, standard errors, and p-values for our logistic model.
 
 ```{r}
 
@@ -155,9 +155,16 @@ safe4lm <- glm(Safe4 ~ Treatment + CycleDist2 + CommuteType2, data = bike, famil
 
 ##### 4 Lane Anovas ######################
 
+####### Bike Move Right 4 ########
 tidy(mr4lm)
+
+####### Motorist Should Wait ########
 tidy(mvw4lm)
+
+####### Bike Permitted #########
 tidy(perm4lm)
+
+####### Safe ########
 tidy(safe4lm)
 
 #############################################
