@@ -56,9 +56,10 @@ Gender <- bike %>% group_by(Gender) %>% count() %>% ungroup() %>% mutate(Gender 
 ##knitr :: kable(Traffic_cntrl_device)
 l <- list(Demograph, Cycle_dist, Education, Traffic_cntrl_device, Commute_mode, Gender)
 knitr::kable(l)
+
 ```
 
-```{r}
+```{r, echo=FALSE}
 bike.binary <- bike %>% 
   mutate(BikeMoveRight2 = recode(BikeMoveRight2, "1_Agree" = 1 , "0_Disagree" = 0), 
          MVWait2= recode(MVWait2, "1_Agree" = 1 , "0_Disagree" = 0), 
@@ -71,25 +72,6 @@ bike.binary <- bike %>%
 head(bike.binary)
 
 ```
-
-```{r Prob3}
-#All respondents
-all.respondents <- bike %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2))
-
-# Cycle less than 16 km 
-less.16km <- bike %>% filter(CycleDist2 == "<10") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
-
-#Commuter Motorist
-motorist <- bike %>% filter(CommuteType2 == "MotorVehicle") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
-
-#Cycle greater than 16 km
-greater.16km <- bike %>% filter(CycleDist2 == ">10") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
-
-#Commuter Other
-other <- motorist <- bike %>% filter(CommuteType2 == "Other") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
-```
-
-
 
 S1 Table. Parameter estimates, standard errors, and p-values for our logistic model.
 
@@ -165,5 +147,23 @@ summary(safe4lm)
 
 
 
+3. Reproduce the numbers presented in Fig 5 (A) (top left plot only).
 
+```{r}
+#All respondents
+all.respondents <- bike %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2))
+
+# Cycle less than 16 km 
+less.16km <- bike %>% filter(CycleDist2 == "<10") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
+
+#Commuter Motorist
+motorist <- bike %>% filter(CommuteType2 == "MotorVehicle") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
+
+#Cycle greater than 16 km
+greater.16km <- bike %>% filter(CycleDist2 == ">10") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
+
+#Commuter Other
+other <- motorist <- bike %>% filter(CommuteType2 == "Other") %>% group_by(Treatment) %>% summarise(Agree = length(BikeMoveRight2[BikeMoveRight2 == "1_Agree"])/length(BikeMoveRight2)) %>% ungroup()
+```
+```
 
